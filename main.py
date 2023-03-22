@@ -65,6 +65,8 @@ parser.add_argument('--gpu', type=int,
                     help='id of gpu device to use', required=True)
 parser.add_argument('--saved_model', type=str,
                     help='name of the saved model', required=True)
+parser.add_argument('--saved_log_path', type=str,
+                    help='name of the saved model', required=True)
 
 # Get arguments from the parser in a dictionary,
 args = parser.parse_args()
@@ -201,7 +203,7 @@ def main():
         params, lr=args.lr, momentum=args.momentum, weight_decay=0.001)
 
     scheduler = torch.optim.lr_scheduler.StepLR(
-        optimizer, step_size=10, gamma=0.1)
+        optimizer, step_size=30, gamma=0.1)
 
     #############################################################################
     # Training Pipeline
@@ -224,12 +226,9 @@ def main():
                                'val_acc', 'val_loss', 'val_loss_cat', 'val_loss_cont',])  # 列名
 
 
-    if args.dataset == 'affectnet':
-        df.to_csv(f'/root/autodl-tmp/result/AffectNet/train_log.csv', index=False)  # 路径可以根据需要更改
-    elif args.dataset == 'raf-db':
-        df.to_csv(f'/root/autodl-tmp/result/raf-db/train_log.csv', index=False)  # 路径可以根据需要更改
-    else:
-        df.to_csv(f'/root/autodl-tmp/result/paper2_train_log.csv', index=False)  # 路径可以根据需要更改
+
+    df.to_csv(args.saved_log_path + '/train_log.csv', index=False)  # 路径可以根据需要更改
+
 
     for epoch in range(args.epochs):
         current_lr = get_lr(optimizer)

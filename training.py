@@ -122,13 +122,8 @@ def train_model_multi(args, dataloader, model, criterion_cat, criterion_cont, op
 
         data = pd.DataFrame([list])
 
-        if args.dataset == 'affectnet':
-            data.to_csv(f'/root/autodl-tmp/result/AffectNet/train_log.csv', mode='a', header=False, index=False)  # 路径可以根据需要更改
-        elif args.dataset == 'raf-db':
-            data.to_csv(f'/root/autodl-tmp/result/raf-db/train_log.csv', mode='a', header=False,  index=False)  # 路径可以根据需要更改
-        else:
-            data.to_csv(f'/root/autodl-tmp/paper2_train_log.csv', mode='a', header=False, index=False)  # 路径可以根据需要更改
 
+        data.to_csv(args.saved_log_path + '/train_log.csv', mode='a', header=False, index=False)  # 路径可以根据需要更改
         print(f"Epoch {epoch + 1}, batch: {index}/{len(dataloader)}: acc={accuracy_score(y_train_true, y_train_pred):.4f}, loss={(running_loss/ index):.4f}, loss_cat={(running_loss_cat/ index):.4f}, "
               f"loss_cont={(running_loss_cont/ index):.4f}")
 
@@ -187,13 +182,6 @@ def eval_model_multi(args, dataloader, model, criterion_cat, criterion_cont, gcn
                     ]
 
             data = pd.DataFrame([list])
-            if args.dataset == 'affectnet':
-                data.to_csv(f'/root/autodl-tmp/result/AffectNet/train_log.csv', mode='a', header=False,
-                            index=False)  # 路径可以根据需要更改
-            elif args.dataset == 'raf-db':
-                data.to_csv(f'/root/autodl-tmp/result/raf-db/train_log.csv', mode='a', header=False,
-                            index=False)  # 路径可以根据需要更改
-            else:
-                data.to_csv(f'/root/autodl-tmp/paper2_train_log.csv', mode='a', header=False, index=False)  # 路径可以根据需要更改
-
+            data.to_csv(args.saved_log_path + '/train_log.csv', mode='a', header=False,
+                        index=False)  # 路径可以根据需要更改
     return running_loss / index, running_loss_cat / index, running_loss_cont / index, (y_true, y_pred)

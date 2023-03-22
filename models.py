@@ -56,7 +56,7 @@ class MTC_GCN(nn.Module):
 class MultiChannel(nn.Module):
     def __init__(self, in_channels=2048, filters=2048):
         super(MultiChannel, self).__init__()
-        resnet50 = models.resnet50(pretrained=False)
+        resnet50 = models.resnet50(pretrained=True)
         self.feature = nn.Sequential(*list(resnet50.children())[:-2])
         # self.feature = models.resnet50(pretrained=True)
         self.f1_conv = nn.Sequential(

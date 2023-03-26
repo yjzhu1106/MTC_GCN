@@ -284,9 +284,9 @@ def main(args):
         params, lr=args.lr, momentum=args.momentum, weight_decay=0.001)
 
     # '''加载模型参数，模型：args.saved_model'''
-    # checkpoint = torch.load(output_file)
-    # model.load_state_dict(checkpoint['model_state_dict'])
-    # optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    checkpoint = torch.load(output_file)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 
 
 

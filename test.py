@@ -103,12 +103,12 @@ def test_model_multi(args, dataloader, model, criterion_cat, criterion_cont, gcn
             inputs, labels, labels_cont, inp = batch
 
 
-            model.to(device)
-            inp = inp.to(device)
-            myinput = inputs.to(device)
-            flops, params = profile(model.to(device), inputs=(myinput, inp))
-            flops, params = clever_format([flops, params], "%.3f")
-            print(flops, params)
+            # model.to(device)
+            # inp = inp.to(device)
+            # myinput = inputs.to(device)
+            # flops, params = profile(model.to(device), inputs=(myinput, inp))
+            # flops, params = clever_format([flops, params], "%.3f")
+            # print(flops, params)
 
             inputs = inputs.to(device)
             labels = labels.to(device)
